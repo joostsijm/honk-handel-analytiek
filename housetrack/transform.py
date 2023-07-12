@@ -5,21 +5,44 @@ from bs4 import BeautifulSoup
 from house import House
 
 
-def execute(html_path):
-    """Tranform houses from file"""
-    with open(html_path, "r", encoding="utf-8") as extracted_file:
-        soup = BeautifulSoup(extracted_file.read(), "html.parser")
-    house_elements = soup.select(".ant-spin-container > div > div")
-    houses = []
-    for house_element in house_elements:
-        price = house_element.select_one("span[class='price']").text
-        for replace in ["€ ", ".", ",- kosten koper"]:
-            price = price.replace(replace, "")
-        price = int(price)
-        house = House(
-            house_element.select_one("span[class='address']").text,
-            house_element.select_one("span[class='post-code-city']").text,
-            price,
-        )
-        houses.append(house)
-    return houses
+class Transform:
+    """Transform class"""
+
+    def __init__(self, html_path):
+        self.__html_path = html_path
+
+    def execute(self):
+        """Tranform houses from file"""
+        with open(self.__html_path, "r", encoding="utf-8") as extracted_file:
+            soup = BeautifulSoup(extracted_file.read(), "html.parser")
+        houses = []
+        for house_element in soup.select(".ant-list-item"):
+            price = house_element.select_one("span[class='price']").text
+            for replace in ["€ ", ".", ",- kosten koper"]:
+                price = price.replace(replace, "")
+            price = int(price)
+            postcode_city = house_element.select_one(
+                "span[class='post-code-city']"
+            ).text.split(" ")
+            postcode = " ".join([postcode_city[0], postcode_city[1]])
+            city = postcode_city[2]
+            detail_elements = house_element.select(".ant-descriptions-item-content")
+            house_type = detail_elements[0].text
+            living_size = int(detail_elements[1].text)
+            rooms = int(detail_elements[2].text)
+            bedrooms = int(detail_elements[3].text)
+            url = "https://move.nl" + house_element.select_one("a")["href"]
+
+            house = House(
+                house_element.select_one("span[class='address']").text,
+                postcode,
+                city,
+                price,
+                house_type,
+                living_size,
+                rooms,
+                bedrooms,
+                url
+            )
+            houses.append(house)
+        return houses
