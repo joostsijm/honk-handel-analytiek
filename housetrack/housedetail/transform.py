@@ -1,5 +1,7 @@
 """Transform module"""
 
+from datetime import datetime 
+
 from bs4 import BeautifulSoup
 
 from house import House
@@ -25,8 +27,12 @@ class Transform:
             features[label] = value
             print(f"{label:25}: {value}")
         if "Perceeloppervlakte" in features:
-            self.__house.plot_area= features["Perceeloppervlakte"].replace(" m²", "")
+            self.__house.plot_area = int(features["Perceeloppervlakte"].replace(" m²", ""))
         if "Aanmelddatum" in features:
-            self.__house.registration_date = features["Aanmelddatum"]
+            self.__house.registration_date = datetime.strptime(features["Aanmelddatum"], "%d-%m-%Y")
+        if "Bouwjaar" in features:
+            self.__house.year = int(features["Bouwjaar"])
+        if "Ligging" in features:
+            self.__house.location = features["Ligging"]
 
         return self.__house

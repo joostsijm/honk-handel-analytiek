@@ -1,24 +1,30 @@
 """House module"""
 
 from typing import Optional
+from datetime import datetime
 
 
 class House:
     """Representation of a house"""
-    postcode = Optional[str]
-    city = Optional[str]
-    price = Optional[str]
-    house_type = Optional[str]
-    living_size = Optional[str]
-    rooms = Optional[str]
-    bedrooms = Optional[str]
-    url = Optional[str]
-    registration_date = Optional[str]
+    address = None
+    url = None
+    postcode: Optional[str] = None
+    city: Optional[str] = None
+    price: Optional[int] = None
+    house_type: Optional[str] = None
+    living_size: Optional[int] = None
+    rooms: Optional[int] = None
+    bedrooms: Optional[int] = None
+    url: Optional[str] = None
+    plot_area: Optional[int] = None
+    registration_date: Optional[datetime] = None
+    year: Optional[int] = None
+    location: Optional[str] = None
 
     def __init__(
         self,
         address: str,
-        url: str = None,
+        url: Optional[str] = None,
     ):
         self.address = address
         self.url = url
@@ -26,7 +32,8 @@ class House:
     def fields(self):
         """Return fields of the object"""
         fields = {
-            "Address": self.address
+            "Address": self.address,
+            "Update date": datetime.today().strftime("%Y-%m-%d"),
         }
         if self.postcode: fields["Postcode"] = self.postcode
         if self.city: fields["City"] = self.city
@@ -36,7 +43,11 @@ class House:
         if self.rooms: fields["Rooms"] = self.rooms
         if self.bedrooms: fields["Bedrooms"] = self.bedrooms
         if self.url: fields["URL"] = self.url
-        if self.registration_date: fields["Registration date"] = self.registation_date
+        if self.plot_area: fields["Plot area"] = self.plot_area
+        if self.registration_date: fields["Registration date"] = self.registration_date.strftime("%Y-%m-%d")
+        if self.year: fields["Year"] = self.year
+        if self.location: fields["Location"] = self.location
+        return fields
 
     def record(self):
         """Return records with fields"""

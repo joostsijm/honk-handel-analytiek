@@ -35,7 +35,8 @@ def run_housedetail():
     house.url = HOUSE_URL
     extract = housedetail.Extract(MOVE_USERNAME, MOVE_PASSWORD, house, HTML_PATH)
     transform = housedetail.Transform(house, HTML_PATH)
-    housedetail.run_etl(extract, transform)
+    load = housedetail.Load(AIRTABLE_TOKEN, AIRTABLE_BASE, AIRTABLE_TABLE)
+    housedetail.run_etl(extract, transform, load)
 
 
 def main():
