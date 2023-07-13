@@ -3,6 +3,7 @@ from .extract import Extract
 from .transform import Transform
 from .load import Load
 
+
 def run_etl(extract, transform, load):
     """Run extract transform and load"""
     extracted_data = extract.execute()

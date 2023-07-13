@@ -8,7 +8,7 @@ from house import House
 class Transform:
     """Transform class"""
 
-    def __init__(self, html_path: str=None):
+    def __init__(self, html_path: str = None):
         self.__html_path = html_path
 
     def execute(self, extracted_data=None):
@@ -44,7 +44,7 @@ class Transform:
                 living_size,
                 rooms,
                 bedrooms,
-                url
+                url,
             )
             houses.append(house)
         return houses

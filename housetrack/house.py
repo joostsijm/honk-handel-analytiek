@@ -6,15 +6,15 @@ class House:
 
     def __init__(
         self,
-        address: str,
-        postcode: str,
-        city: str,
-        price: int,
-        house_type: str,
-        living_size: int,
-        rooms: int,
-        bedrooms: int,
-        url: str,
+        address: str = None,
+        postcode: str = None,
+        city: str = None,
+        price: int = None,
+        house_type: str = None,
+        living_size: int = None,
+        rooms: int = None,
+        bedrooms: int = None,
+        url: str = None,
     ):
         self.__address = address
         self.__postcode = postcode
@@ -24,7 +24,7 @@ class House:
         self.__living_size = living_size
         self.__rooms = rooms
         self.__bedrooms = bedrooms
-        self.__url = url
+        self.url = url
 
     def fields(self):
         """Return fields of the object"""
@@ -37,7 +37,7 @@ class House:
             "Living size": self.__living_size,
             "Rooms": self.__rooms,
             "Bedrooms": self.__bedrooms,
-            "URL": self.__url,
+            "URL": self.url,
         }
 
     def record(self):
