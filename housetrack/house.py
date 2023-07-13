@@ -1,51 +1,49 @@
 """House module"""
 
+from typing import Optional
+
 
 class House:
     """Representation of a house"""
+    postcode = Optional[str]
+    city = Optional[str]
+    price = Optional[str]
+    house_type = Optional[str]
+    living_size = Optional[str]
+    rooms = Optional[str]
+    bedrooms = Optional[str]
+    url = Optional[str]
+    registration_date = Optional[str]
 
     def __init__(
         self,
-        address: str = None,
-        postcode: str = None,
-        city: str = None,
-        price: int = None,
-        house_type: str = None,
-        living_size: int = None,
-        rooms: int = None,
-        bedrooms: int = None,
+        address: str,
         url: str = None,
     ):
-        self.__address = address
-        self.__postcode = postcode
-        self.__city = city
-        self.__price = price
-        self.__house_type = house_type
-        self.__living_size = living_size
-        self.__rooms = rooms
-        self.__bedrooms = bedrooms
+        self.address = address
         self.url = url
 
     def fields(self):
         """Return fields of the object"""
-        return {
-            "Address": self.__address,
-            "Postcode": self.__postcode,
-            "City": self.__city,
-            "Price": self.__price,
-            "House type": self.__house_type,
-            "Living size": self.__living_size,
-            "Rooms": self.__rooms,
-            "Bedrooms": self.__bedrooms,
-            "URL": self.url,
+        fields = {
+            "Address": self.address
         }
+        if self.postcode: fields["Postcode"] = self.postcode
+        if self.city: fields["City"] = self.city
+        if self.price: fields["Price"] = self.price
+        if self.house_type: fields["House type"] = self.house_type
+        if self.living_size: fields["Living size"] = self.living_size
+        if self.rooms: fields["Rooms"] = self.rooms
+        if self.bedrooms: fields["Bedrooms"] = self.bedrooms
+        if self.url: fields["URL"] = self.url
+        if self.registration_date: fields["Registration date"] = self.registation_date
 
     def record(self):
         """Return records with fields"""
         return {"fields": self.fields()}
 
     def __str__(self):
-        return f"{self.__address} ({self.__price})"
+        return f"{self.address}"
 
     def __repr__(self):
         return self.__str__()

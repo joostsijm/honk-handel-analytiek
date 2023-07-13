@@ -19,32 +19,21 @@ class Transform:
         soup = BeautifulSoup(extracted_data, "html.parser")
         houses = []
         for house_element in soup.select(".ant-list-item"):
+            house = House(house_element.select_one("span[class='address']").text)
             price = house_element.select_one("span[class='price']").text
             for replace in ["€ ", ".", ",- kosten koper"]:
                 price = price.replace(replace, "")
-            price = int(price)
+            house.price = int(price)
             postcode_city = house_element.select_one(
                 "span[class='post-code-city']"
             ).text.split(" ")
-            postcode = " ".join([postcode_city[0], postcode_city[1]])
-            city = postcode_city[2]
+            house.postcode = " ".join([postcode_city[0], postcode_city[1]])
+            house.city = postcode_city[2]
             detail_elements = house_element.select(".ant-descriptions-item-content")
-            house_type = detail_elements[0].text
-            living_size = int(detail_elements[1].text)
-            rooms = int(detail_elements[2].text)
-            bedrooms = int(detail_elements[3].text)
-            url = "https://move.nl" + house_element.select_one("a")["href"]
-
-            house = House(
-                house_element.select_one("span[class='address']").text,
-                postcode,
-                city,
-                price,
-                house_type,
-                living_size,
-                rooms,
-                bedrooms,
-                url,
-            )
+            house.house_type = detail_elements[0].text
+            house.living_size = int(detail_elements[1].text)
+            house.rooms = int(detail_elements[2].text)
+            house.bedrooms = int(detail_elements[3].text)
+            house.url = "https://move.nl" + house_element.select_one("a")["href"]
             houses.append(house)
         return houses
