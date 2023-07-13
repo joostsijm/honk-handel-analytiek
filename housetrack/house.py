@@ -23,6 +23,7 @@ class House:
     registration_date: Optional[datetime] = None
     year: Optional[int] = None
     location: Optional[str] = None
+    update_date: Optional[str] = None
 
     def __init__(
         self,
@@ -49,6 +50,7 @@ class House:
         "Plot area": "plot_area",
         "Registration date": "registration_date",
         "Location": "location",
+        "Update date": "update_date",
     }
 
     def fill_from_fields(self, fields: list[str]):
@@ -60,11 +62,9 @@ class House:
             if field in fields:
                 setattr(self, mapping, fields[field])
 
-    def fields(self):
+    def fields(self, update: Optional[bool] = None):
         """Return fields of the object"""
-        fields = {
-            "Update date": datetime.today().strftime("%Y-%m-%d"),
-        }
+        fields = {}
         for (
             field,
             mapping,
@@ -74,11 +74,13 @@ class House:
                 if isinstance(value, datetime):
                     value = value.strftime("%Y-%m-%d")
                 fields[field] = value
+        if update:
+            fields["Update date"] = datetime.today().strftime("%Y-%m-%d")
         return fields
 
-    def record(self):
+    def record(self, update: Optional[bool] = None):
         """Return records with fields"""
-        return {"fields": self.fields()}
+        return {"fields": self.fields(update)}
 
     def html_path(self):
         """Return path for HTML storage"""

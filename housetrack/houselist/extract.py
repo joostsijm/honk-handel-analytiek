@@ -45,7 +45,7 @@ class Extract:
             WebDriverWait(driver, 10).until(
                 EC.presence_of_element_located((By.CLASS_NAME, "ant-spin-container"))
             )
-            time.sleep(20)
+            time.sleep(2)
             if self.__html_path:
                 with open(self.__html_path, "w", encoding="utf-8") as file:
                     file.write(driver.page_source)

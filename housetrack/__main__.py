@@ -5,7 +5,6 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-from house import House
 from database import Database
 import houselist
 import housedetail
@@ -33,7 +32,7 @@ def run_houselist():
 
 def run_housedetail():
     """Execute housedetail ETL"""
-    houses = DATABASE.houses()
+    houses = DATABASE.houses(needs_update=True)
     extract = housedetail.Extract(MOVE_USERNAME, MOVE_PASSWORD, houses)
     transform = housedetail.Transform(houses)
     load = housedetail.Load(DATABASE)
@@ -43,7 +42,7 @@ def run_housedetail():
 
 def main():
     """Method to initialize the application"""
-    # run_houselist()
+    run_houselist()
     run_housedetail()
 
 

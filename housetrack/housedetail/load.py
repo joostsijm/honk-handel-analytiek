@@ -1,7 +1,5 @@
 """Load module"""
 
-from pyairtable import Table
-
 from house import House
 from database import Database
 
@@ -16,4 +14,4 @@ class Load:
 
     def execute(self, houses: list[House]):
         """Load houses to database"""
-        self.__database.update([house.record() for house in houses])
+        return self.__database.update([house.record(update=True) for house in houses])
