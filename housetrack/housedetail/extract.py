@@ -1,6 +1,7 @@
 """Extract module"""
 
 import time
+from typing import Optional
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -14,9 +15,13 @@ from house import House
 
 class Extract:
     """Extract class"""
+    __username: str = None
+    __password: str = None
+    __house: list[House] = None
+    __html_path: Optional[str] = None
 
     def __init__(
-        self, username: str, password: str, house: House, html_path: str = None
+        self, username: str, password: str, house: list[House], html_path: Optional[str] = None
     ):
         self.__username = username
         self.__password = password

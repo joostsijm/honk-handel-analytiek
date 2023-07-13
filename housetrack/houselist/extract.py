@@ -1,6 +1,7 @@
 """Extract module"""
 
 import time
+from typing import Optional
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -12,8 +13,12 @@ from selenium.webdriver import ActionChains
 
 class Extract:
     """Extract class"""
+    __username: str = None
+    __password: str = None
+    __html_path: Optional[str] = None
 
-    def __init__(self, username: str, password: str, html_path: str = None):
+
+    def __init__(self, username: str, password: str, html_path: Optional[str] = None):
         self.__username = username
         self.__password = password
         self.__html_path = html_path

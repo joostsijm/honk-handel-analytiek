@@ -1,6 +1,7 @@
 """Transform module"""
 
-from datetime import datetime 
+from typing import Optional
+from datetime import datetime
 
 from bs4 import BeautifulSoup
 
@@ -9,8 +10,10 @@ from house import House
 
 class Transform:
     """Transform class"""
+    __house: House = None
+    __html_path: Optional[str] = None
 
-    def __init__(self, house: House, html_path: str = None):
+    def __init__(self, house: House, html_path: Optional[str] = None):
         self.__house = house
         self.__html_path = html_path
 

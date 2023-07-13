@@ -6,8 +6,8 @@ from datetime import datetime
 
 class House:
     """Representation of a house"""
-    address = None
-    url = None
+    address: str = None
+    url: str = None
     postcode: Optional[str] = None
     city: Optional[str] = None
     price: Optional[int] = None

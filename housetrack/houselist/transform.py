@@ -1,5 +1,6 @@
 """Transform module"""
 
+from typing import Optional
 from bs4 import BeautifulSoup
 
 from house import House
@@ -7,6 +8,7 @@ from house import House
 
 class Transform:
     """Transform class"""
+    __html_path: Optional[str] = None
 
     def __init__(self, html_path: str = None):
         self.__html_path = html_path
