@@ -31,10 +31,11 @@ def run_houselist():
 
 def run_housedetail():
     """Execute housedetail ETL"""
-    house = House()
+    house = House("Test 23")
     house.url = HOUSE_URL
     extract = housedetail.Extract(MOVE_USERNAME, MOVE_PASSWORD, house, HTML_PATH)
-    housedetail.run_etl(extract)
+    transform = housedetail.Transform(house, HTML_PATH)
+    housedetail.run_etl(extract, transform)
 
 
 def main():
