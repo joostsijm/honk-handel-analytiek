@@ -15,19 +15,17 @@ class Transform:
     def __init__(self, houses: list[House]):
         self.__houses = houses
 
-    def execute(self, extracted_data=None):
+    def execute(self):
         """Tranform houses from file"""
         for house in self.__houses:
-            if not extracted_data:
-                with open(house.html_path(), "r", encoding="utf-8") as extracted_file:
-                    extracted_data = extracted_file.read()
+            with open(house.html_path(), "r", encoding="utf-8") as extracted_file:
+                extracted_data = extracted_file.read()
             soup = BeautifulSoup(extracted_data, "html.parser")
             features = {}
             for feature_element in soup.select(".kenmerk-item"):
                 label = feature_element.select_one(".kenmerk-label").text
                 value = feature_element.select_one(".kenmerk-value").text
                 features[label] = value
-                print(f"{label:25}: {value}")
             if "Perceeloppervlakte" in features:
                 house.plot_area = int(features["Perceeloppervlakte"].replace(" m²", ""))
             if "Aanmelddatum" in features:

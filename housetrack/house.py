@@ -1,5 +1,6 @@
 """House module"""
 
+import os
 from pathlib import Path
 from typing import Optional
 from datetime import datetime
@@ -25,42 +26,54 @@ class House:
 
     def __init__(
         self,
-        address: str,
+        address: Optional[str] = None,
         url: Optional[str] = None,
+        fields: Optional[list[str]] = None,
     ):
         self.address = address
         self.url = url
+        if fields:
+            self.fill_from_fields(fields)
+
+    field_mapping = {
+        "Address": "address",
+        "Postcode": "postcode",
+        "City": "city",
+        "Price": "price",
+        "House type": "house_type",
+        "Living size": "living_size",
+        "Rooms": "rooms",
+        "Bedrooms": "bedrooms",
+        "URL": "url",
+        "Year": "year",
+        "Plot area": "plot_area",
+        "Registration date": "registration_date",
+        "Location": "location",
+    }
+
+    def fill_from_fields(self, fields: list[str]):
+        """Fill object with fields"""
+        for (
+            field,
+            mapping,
+        ) in self.field_mapping.items():
+            if field in fields:
+                setattr(self, mapping, fields[field])
 
     def fields(self):
         """Return fields of the object"""
         fields = {
-            "Address": self.address,
             "Update date": datetime.today().strftime("%Y-%m-%d"),
         }
-        if self.postcode:
-            fields["Postcode"] = self.postcode
-        if self.city:
-            fields["City"] = self.city
-        if self.price:
-            fields["Price"] = self.price
-        if self.house_type:
-            fields["House type"] = self.house_type
-        if self.living_size:
-            fields["Living size"] = self.living_size
-        if self.rooms:
-            fields["Rooms"] = self.rooms
-        if self.bedrooms:
-            fields["Bedrooms"] = self.bedrooms
-        if self.url:
-            fields["URL"] = self.url
-        if self.plot_area:
-            fields["Plot area"] = self.plot_area
-        if self.registration_date:
-            fields["Registration date"] = self.registration_date.strftime("%Y-%m-%d")
-        if self.year:
-            fields["Year"] = self.year
-        if self.location:
-            fields["Location"] = self.location
+        for (
+            field,
+            mapping,
+        ) in self.field_mapping.items():
+            if hasattr(self, mapping):
+                value = getattr(self, mapping)
+                if isinstance(value, datetime):
+                    value = value.strftime("%Y-%m-%d")
+                fields[field] = value
         return fields
 
     def record(self):
@@ -69,7 +82,8 @@ class House:
 
     def html_path(self):
         """Return path for HTML storage"""
-        return Path.cwd() / "extract" / f"{self.address}.html"
+        address = self.address.replace("/", ",")
+        return os.path.abspath(os.path.join("extract", f"{address}.html"))
 
     def __str__(self):
         return f"{self.address}"

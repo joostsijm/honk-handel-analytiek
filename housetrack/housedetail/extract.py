@@ -44,7 +44,7 @@ class Extract:
             button = driver.find_element(By.CSS_SELECTOR, "button[type='submit']")
             ActionChains(driver).click(button).perform()
 
-            username_input = WebDriverWait(driver, 10).until(
+            WebDriverWait(driver, 10).until(
                 EC.presence_of_element_located((By.CLASS_NAME, "ant-spin-container"))
             )
             time.sleep(1)

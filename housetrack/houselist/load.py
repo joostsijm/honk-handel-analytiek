@@ -2,19 +2,17 @@
 
 from pyairtable import Table
 
+from database import Database
+
 
 class Load:
     """Load class"""
 
-    __table: Table = None
+    __database: Database = None
 
-    def __init__(self, airtable_token: str, airtable_base: str, airtable_table: str):
-        self.__table = Table(airtable_token, airtable_base, airtable_table)
+    def __init__(self, database: Database):
+        self.__database = database
 
     def execute(self, houses):
-        """Load houses to AirTable"""
-        house_records = [house.record() for house in houses]
-
-        return self.__table.batch_upsert(
-            house_records, key_fields=["Address"], typecast=True
-        )
+        """Load houses to database"""
+        self.__database.update([house.record() for house in houses])
