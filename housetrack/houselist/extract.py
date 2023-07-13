@@ -13,10 +13,10 @@ from selenium.webdriver import ActionChains
 
 class Extract:
     """Extract class"""
+
     __username: str = None
     __password: str = None
     __html_path: Optional[str] = None
-
 
     def __init__(self, username: str, password: str, html_path: Optional[str] = None):
         self.__username = username

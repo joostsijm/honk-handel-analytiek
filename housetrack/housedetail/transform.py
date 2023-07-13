@@ -10,6 +10,7 @@ from house import House
 
 class Transform:
     """Transform class"""
+
     __houses: list[House] = None
 
     def __init__(self, houses: list[House]):
@@ -31,7 +32,9 @@ class Transform:
             if "Perceeloppervlakte" in features:
                 house.plot_area = int(features["Perceeloppervlakte"].replace(" m²", ""))
             if "Aanmelddatum" in features:
-                house.registration_date = datetime.strptime(features["Aanmelddatum"], "%d-%m-%Y")
+                house.registration_date = datetime.strptime(
+                    features["Aanmelddatum"], "%d-%m-%Y"
+                )
             if "Bouwjaar" in features:
                 house.year = int(features["Bouwjaar"])
             if "Ligging" in features:

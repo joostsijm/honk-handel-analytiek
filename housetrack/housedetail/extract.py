@@ -15,13 +15,12 @@ from house import House
 
 class Extract:
     """Extract class"""
+
     __username: str = None
     __password: str = None
     __houses: list[House] = None
 
-    def __init__(
-        self, username: str, password: str, houses: list[House]
-    ):
+    def __init__(self, username: str, password: str, houses: list[House]):
         self.__username = username
         self.__password = password
         self.__houses = houses
