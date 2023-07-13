@@ -22,7 +22,7 @@ class Database:
         if needs_update:
             today = datetime.today().strftime("%Y-%m-%d")
             rows = self.__table.all(
-                formula=f"DATETIME_DIFF({{Update date}}, '{today}', 'd')<=-7"
+                formula=f"OR(DATETIME_DIFF({{Update date}}, '{today}', 'd')<=-7,{{Update date}} = BLANK())"
             )
         else:
             rows = self.__table.all()
