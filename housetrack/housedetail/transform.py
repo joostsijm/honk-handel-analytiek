@@ -1,6 +1,5 @@
 """Transform module"""
 
-from typing import Optional
 from datetime import datetime
 
 from bs4 import BeautifulSoup

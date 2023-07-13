@@ -69,7 +69,7 @@ class House:
 
     def html_path(self):
         """Return path for HTML storage"""
-        return Path.cwd() / f"{self.address}.html"
+        return Path.cwd() / "extract" / f"{self.address}.html"
 
     def __str__(self):
         return f"{self.address}"

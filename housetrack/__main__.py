@@ -17,14 +17,13 @@ AIRTABLE_TABLE = os.environ.get("AIRTABLE_TABLE")
 MOVE_USERNAME = os.environ.get("MOVE_USERNAME")
 MOVE_PASSWORD = os.environ.get("MOVE_PASSWORD")
 HOUSE_URL = os.environ.get("HOUSE_URL")
-# HTML_PATH = Path.cwd() / "mijn_gevonden_woningen.html"
-HTML_PATH = Path.cwd() / "house.html"
+HOUSELIST_HTML_PATH = Path.cwd() / "extract" / "mijn_gevonden_woningen.html"
 
 
 def run_houselist():
     """Execute houselist ETL"""
-    extract = houselist.Extract(MOVE_USERNAME, MOVE_PASSWORD, HTML_PATH)
-    transform = houselist.Transform(HTML_PATH)
+    extract = houselist.Extract(MOVE_USERNAME, MOVE_PASSWORD, HOUSELIST_HTML_PATH)
+    transform = houselist.Transform(HOUSELIST_HTML_PATH)
     load = houselist.Load(AIRTABLE_TOKEN, AIRTABLE_BASE, AIRTABLE_TABLE)
     houselist.run_etl(extract, transform, load)
 
