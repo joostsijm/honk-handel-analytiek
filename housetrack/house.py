@@ -1,5 +1,6 @@
 """House module"""
 
+from pathlib import Path
 from typing import Optional
 from datetime import datetime
 
@@ -52,6 +53,10 @@ class House:
     def record(self):
         """Return records with fields"""
         return {"fields": self.fields()}
+
+    def html_path(self):
+        """Return path for HTML storage"""
+        return Path.cwd() / f"{self.address}.html"
 
     def __str__(self):
         return f"{self.address}"

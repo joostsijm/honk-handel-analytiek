@@ -17,16 +17,14 @@ class Extract:
     """Extract class"""
     __username: str = None
     __password: str = None
-    __house: list[House] = None
-    __html_path: Optional[str] = None
+    __houses: list[House] = None
 
     def __init__(
-        self, username: str, password: str, house: list[House], html_path: Optional[str] = None
+        self, username: str, password: str, houses: list[House]
     ):
         self.__username = username
         self.__password = password
-        self.__house = house
-        self.__html_path = html_path
+        self.__houses = houses
 
     def execute(self):
         """Extract houses to file"""
@@ -51,11 +49,11 @@ class Extract:
                 EC.presence_of_element_located((By.CLASS_NAME, "ant-spin-container"))
             )
             time.sleep(1)
-            driver.get(self.__house.url)
-            time.sleep(2)
-            if self.__html_path:
-                with open(self.__html_path, "w", encoding="utf-8") as file:
+            for house in self.__houses:
+                driver.get(house.url)
+                time.sleep(1)
+                house.source_page = driver.page_source
+                with open(house.html_path(), "w", encoding="utf-8") as file:
                     file.write(driver.page_source)
-            return driver.page_source
         finally:
             driver.quit()
