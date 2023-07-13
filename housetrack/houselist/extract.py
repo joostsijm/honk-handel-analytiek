@@ -13,9 +13,10 @@ from selenium.webdriver import ActionChains
 class Extract:
     """Extract class"""
 
-    def __init__(self, username: str, password: str):
+    def __init__(self, username: str, password: str, html_path: str = None):
         self.__username = username
         self.__password = password
+        self.__html_path = html_path
 
     def execute(self):
         """Extract houses to file"""
@@ -40,6 +41,9 @@ class Extract:
                 EC.presence_of_element_located((By.CLASS_NAME, "ant-spin-container"))
             )
             time.sleep(1)
+            if self.__html_path:
+                with open(self.__html_path, "w", encoding="utf-8") as file:
+                    file.write(driver.page_source)
             return driver.page_source
         finally:
             driver.quit()

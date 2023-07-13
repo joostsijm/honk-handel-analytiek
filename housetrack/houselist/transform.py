@@ -8,13 +8,15 @@ from house import House
 class Transform:
     """Transform class"""
 
-    def __init__(self, html_path):
+    def __init__(self, html_path: str=None):
         self.__html_path = html_path
 
-    def execute(self):
+    def execute(self, extracted_data=None):
         """Tranform houses from file"""
-        with open(self.__html_path, "r", encoding="utf-8") as extracted_file:
-            soup = BeautifulSoup(extracted_file.read(), "html.parser")
+        if not extracted_data:
+            with open(self.__html_path, "r", encoding="utf-8") as extracted_file:
+                extracted_data = extracted_file.read()
+        soup = BeautifulSoup(extracted_data, "html.parser")
         houses = []
         for house_element in soup.select(".ant-list-item"):
             price = house_element.select_one("span[class='price']").text

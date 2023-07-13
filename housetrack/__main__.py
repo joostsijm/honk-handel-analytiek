@@ -19,18 +19,11 @@ HTML_PATH = Path.cwd() / "mijn_gevonden_woningen.html"
 
 def main():
     """Method to initialize the application"""
-
-    extract = houselist.Extract(MOVE_USERNAME, MOVE_PASSWORD)
-    extracted_data = extract.execute()
-    with open(HTML_PATH, "w", encoding="utf-8") as file:
-        file.write(extracted_data)
-
+    extract = houselist.Extract(MOVE_USERNAME, MOVE_PASSWORD, HTML_PATH)
     transform = houselist.Transform(HTML_PATH)
-    transformed_data = transform.execute()
-
     load = houselist.Load(AIRTABLE_TOKEN, AIRTABLE_BASE, AIRTABLE_TABLE)
-    loaded_data = load.execute(transformed_data)
-    print(loaded_data)
+
+    houselist.run_etl(extract, transform, load)
 
 
 if __name__ == "__main__":
