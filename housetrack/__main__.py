@@ -42,7 +42,7 @@ def run_housedetail():
 
 def main():
     """Method to initialize the application"""
-    # run_houselist()
+    run_houselist()
     run_housedetail()
 
 
