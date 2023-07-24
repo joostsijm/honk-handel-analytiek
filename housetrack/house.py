@@ -1,7 +1,6 @@
 """House module"""
 
 import os
-from pathlib import Path
 from typing import Optional
 from datetime import datetime
 

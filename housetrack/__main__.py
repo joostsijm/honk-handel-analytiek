@@ -27,17 +27,19 @@ def run_houselist():
     transform = houselist.Transform(HOUSELIST_HTML_PATH)
     load = houselist.Load(DATABASE)
     loaded_data = houselist.run_etl(extract, transform, load)
-    print(loaded_data)
+    print("Found {len(loaded_data)} new houses in list.")
 
 
 def run_housedetail():
     """Execute housedetail ETL"""
     houses = DATABASE.houses(needs_update=True)
+    if not houses:
+        return
     extract = housedetail.Extract(MOVE_USERNAME, MOVE_PASSWORD, houses)
     transform = housedetail.Transform(houses)
     load = housedetail.Load(DATABASE)
     loaded_data = housedetail.run_etl(extract, transform, load)
-    print(loaded_data)
+    print("Update details of {len(loaded_data)} houses.")
 
 
 def main():
