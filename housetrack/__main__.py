@@ -27,7 +27,7 @@ def run_houselist():
     transform = houselist.Transform(HOUSELIST_HTML_PATH)
     load = houselist.Load(DATABASE)
     loaded_data = houselist.run_etl(extract, transform, load)
-    print("Found {len(loaded_data)} new houses in list.")
+    print(f"Found {len(loaded_data)} new houses in list.")
 
 
 def run_housedetail():
@@ -39,7 +39,7 @@ def run_housedetail():
     transform = housedetail.Transform(houses)
     load = housedetail.Load(DATABASE)
     loaded_data = housedetail.run_etl(extract, transform, load)
-    print("Update details of {len(loaded_data)} houses.")
+    print(f"Update details of {len(loaded_data)} houses.")
 
 
 def main():
