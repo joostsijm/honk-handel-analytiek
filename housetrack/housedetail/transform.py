@@ -21,20 +21,30 @@ class Transform:
             with open(house.html_path(), "r", encoding="utf-8") as extracted_file:
                 extracted_data = extracted_file.read()
             soup = BeautifulSoup(extracted_data, "html.parser")
-            features = {}
             for feature_element in soup.select(".kenmerk-item"):
-                label = feature_element.select_one(".kenmerk-label").text
-                value = feature_element.select_one(".kenmerk-value").text
-                features[label] = value
-            if "Perceeloppervlakte" in features:
-                house.plot_area = int(features["Perceeloppervlakte"].replace(" m²", ""))
-            if "Aanmelddatum" in features:
-                house.registration_date = datetime.strptime(
-                    features["Aanmelddatum"], "%d-%m-%Y"
-                )
-            if "Bouwjaar" in features:
-                house.year = int(features["Bouwjaar"])
-            if "Ligging" in features:
-                house.location = features["Ligging"]
-
+                feature_label = feature_element.select_one(".kenmerk-label").text
+                if feature_label in FEATURE_TYPES:
+                    (attribute_name, value_parser) = FEATURE_TYPES[feature_label]
+                    setattr(
+                        house,
+                        attribute_name,
+                        value_parser(feature_element.select_one(".kenmerk-value").text),
+                    )
         return self.__houses
+
+
+FEATURE_VALUES = {
+    "string": lambda x: x,
+    "m2": lambda x: int(x.replace(" m²", "")),
+    "date": lambda x: datetime.strptime(x, "%d-%m-%Y"),
+    "int": lambda x: int(x),
+}
+
+FEATURE_TYPES = {
+    "Perceeloppervlakte": ("plot_area", FEATURE_VALUES["m2"]),
+    "Aanmelddatum": ("registration_date", FEATURE_VALUES["date"]),
+    "Ligging": ("location", FEATURE_VALUES["string"]),
+    "Energieklasse": ("energy_class", FEATURE_VALUES["string"]),
+    "Kwaliteit woning": ("home_quality", FEATURE_VALUES["string"]),
+    "Bouwjaar": ("year", FEATURE_VALUES["int"]),
+}

@@ -22,6 +22,8 @@ class House:
     registration_date: Optional[datetime] = None
     year: Optional[int] = None
     location: Optional[str] = None
+    energy_class: Optional[str] = None
+    home_quality: Optional[str] = None
     update_date: Optional[str] = None
 
     def __init__(
@@ -49,6 +51,8 @@ class House:
         "Plot area": "plot_area",
         "Registration date": "registration_date",
         "Location": "location",
+        "Energy class": "energy_class",
+        "Home quality": "home_quality",
         "Update date": "update_date",
     }
 
