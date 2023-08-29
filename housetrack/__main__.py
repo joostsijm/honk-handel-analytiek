@@ -30,12 +30,17 @@ def run_houselist():
     print(f"Found {len(loaded_data)} new houses in list.")
 
 
-def run_housedetail():
+def run_housedetail(from_cache: bool = False):
     """Execute housedetail ETL"""
-    houses = DATABASE.houses(needs_update=True)
+    needs_update = not from_cache
+    houses = DATABASE.houses(needs_update=needs_update)
     if not houses:
         return
-    extract = housedetail.Extract(MOVE_USERNAME, MOVE_PASSWORD, houses)
+    extract = (
+        None
+        if from_cache
+        else housedetail.Extract(MOVE_USERNAME, MOVE_PASSWORD, houses)
+    )
     transform = housedetail.Transform(houses)
     load = housedetail.Load(DATABASE)
     loaded_data = housedetail.run_etl(extract, transform, load)
@@ -45,7 +50,7 @@ def run_housedetail():
 def main():
     """Method to initialize the application"""
     run_houselist()
-    run_housedetail()
+    run_housedetail(from_cache=False)
 
 
 if __name__ == "__main__":
