@@ -34,8 +34,9 @@ class Transform:
 
 
 FEATURE_VALUES = {
-    "string": lambda x: x,
+    "str": lambda x: x,
     "m2": lambda x: int(x.replace(" m²", "")),
+    "m3": lambda x: int(x.replace(" m³", "")),
     "date": lambda x: datetime.strptime(x, "%d-%m-%Y"),
     "int": lambda x: int(x),
 }
@@ -43,8 +44,13 @@ FEATURE_VALUES = {
 FEATURE_TYPES = {
     "Perceeloppervlakte": ("plot_area", FEATURE_VALUES["m2"]),
     "Aanmelddatum": ("registration_date", FEATURE_VALUES["date"]),
-    "Ligging": ("location", FEATURE_VALUES["string"]),
-    "Energieklasse": ("energy_class", FEATURE_VALUES["string"]),
-    "Kwaliteit woning": ("home_quality", FEATURE_VALUES["string"]),
+    "Ligging": ("location", FEATURE_VALUES["str"]),
+    "Energieklasse": ("energy_class", FEATURE_VALUES["str"]),
+    "Kwaliteit woning": ("home_quality", FEATURE_VALUES["str"]),
     "Bouwjaar": ("year", FEATURE_VALUES["int"]),
+    "Status": ("status", FEATURE_VALUES["str"]),
+    "Gebouwgebonden buitenruimte": ("built_outdoor_space", FEATURE_VALUES["m2"]),
+    "Externe bergruimte": ("external_storage_space", FEATURE_VALUES["m2"]),
+    "Inhoud": ("volume", FEATURE_VALUES["m3"]),
+    "Aantal woonlagen": ("number_of_floors", FEATURE_VALUES["str"]),
 }

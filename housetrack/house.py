@@ -53,7 +53,13 @@ class House:
         "Location": "location",
         "Energy class": "energy_class",
         "Home quality": "home_quality",
+        "Status": "status",
+        "Build outdoor space": "built_outdoor_space",
+        "External storage space": "external_storage_space",
+        "Volume": "volume",
+        "Number of floors": "number_of_floors",
         "Update date": "update_date",
+
     }
 
     def fill_from_fields(self, fields: list[str]):
