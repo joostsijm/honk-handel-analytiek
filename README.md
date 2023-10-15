@@ -1,4 +1,4 @@
-# Housetrack
+# Move.nl House Listing Tracker
 This repository contains a Python application, which consists of multiple data pipelines.
 These pipelines following the extract, transform, and load designed principle.
 An online housing platform functions as source information, as housing details are normalized, they are loaded into Airtable.

@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "housetrack"
+name = "move_nl_house_listing_tracker"
 version = "0.1.0"
-description = ""
+description = "Track house listing on the Move.nl platform"
 authors = ["joostsijm <joostsijm@gmail.com>"]
 readme = "README.md"
 
@@ -11,7 +11,6 @@ pyairtable = "^1.5.0"
 python-dotenv = "^1.0.0"
 selenium = "^4.10.0"
 beautifulsoup4 = "^4.12.2"
-
 
 [build-system]
 requires = ["poetry-core"]

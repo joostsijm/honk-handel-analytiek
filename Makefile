@@ -1,5 +1,5 @@
 run: 
-	poetry run python housetrack
+	poetry run python move_nl_house_listing_tracker
 
 install:
 	poetry install
