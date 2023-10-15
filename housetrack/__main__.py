@@ -11,12 +11,13 @@ import housedetail
 
 
 load_dotenv()
+MOVE_USERNAME = os.environ.get("MOVE_USERNAME")
+MOVE_PASSWORD = os.environ.get("MOVE_PASSWORD")
 AIRTABLE_TOKEN = os.environ.get("AIRTABLE_TOKEN")
 AIRTABLE_BASE = os.environ.get("AIRTABLE_BASE")
 AIRTABLE_TABLE = os.environ.get("AIRTABLE_TABLE")
-MOVE_USERNAME = os.environ.get("MOVE_USERNAME")
-MOVE_PASSWORD = os.environ.get("MOVE_PASSWORD")
 HOUSE_URL = os.environ.get("HOUSE_URL")
+
 HOUSELIST_HTML_PATH = Path.cwd() / "extract" / "mijn_gevonden_woningen.html"
 DATABASE = Database(AIRTABLE_TOKEN, AIRTABLE_BASE, AIRTABLE_TABLE)
 

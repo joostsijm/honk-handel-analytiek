@@ -3,10 +3,17 @@
 from datetime import datetime
 from typing import Optional
 
+import requests
 from pyairtable import Table
-from pyairtable.formulas import match
 
 from house import House
+
+
+class AirtableError(Exception):
+    """Exception for credential error"""
+
+    def __init__(self, message):
+        super().__init__(message)
 
 
 class Database:
@@ -30,4 +37,12 @@ class Database:
 
     def update(self, records: list[list[str]]):
         """Load record to Airtable"""
-        return self.__table.batch_upsert(records, key_fields=["Address"], typecast=True)
+        try:
+            updated_houses = self.__table.batch_upsert(
+                records, key_fields=["Address"], typecast=True
+            )
+        except requests.exceptions.HTTPError as exception:
+            raise AirtableError(
+                "Validate you Airtable credentials in the environment configuration."
+            ) from exception
+        return updated_houses

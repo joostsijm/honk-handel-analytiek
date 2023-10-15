@@ -59,7 +59,6 @@ class House:
         "Volume": "volume",
         "Number of floors": "number_of_floors",
         "Update date": "update_date",
-
     }
 
     def fill_from_fields(self, fields: list[str]):
