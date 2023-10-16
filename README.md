@@ -20,17 +20,21 @@ Common described detail from the listing page are extracted.
 The detailed information is then added to the existing record in Airtable
 
 # Set-up
-Requires Python (^3.10), Poetry, and Selenium installed onto the installation target system.
-Futhermore, the housing platform, and Airtable API, credentials are requisites.
+Requires [https://www.python.org/](https://www.python.org/) (^3.10), [Poetry](https://python-poetry.org/), and [Selenium](https://www.selenium.dev/) installed onto the target installation system.
+Futhermore credentials for the [Move.nl](https://move.nl/) housing platform, and [Airtable API](https://airtable.com/developers/web/api/introduction), are requisites.
 
-## Installation steps
-Poetry dependency installation:
+## Installation
+With Python installed on the target system, futher installation of Python dependencies are required.
+Use the [Poetry](https://python-poetry.org/) Python dependency manager to install them
+Execute the following snippet on a command line interface (CLI) after navigating to the repository base directory (the  folder this file is located in):
 
 ```
 poetry install
 ```
 
-Copy the example environment configuration:
+Simple environment variable configuration is needed to interact with external systems.
+Copy, or rename, the example environment configuration `example.env` to `.env`.
+Execute the following snippet in the CLI while in the base repository (or use your prefered file explorer):
 
 ```
 cp example.env .env
@@ -38,9 +42,25 @@ cp example.env .env
 
 Then edit the `.env` file accordingly with the credentials.
 
+```
+# Username of move.nl account
+MOVE_USERNAME=PLACEHOLDER
+# Password of move.nl account
+MOVE_PASSWORD=PLACEHOLDER
+
+# Personal access token of Airtable API
+AIRTABLE_TOKEN=PLACEHOLDER
+# The Airtable base identicator where the data will be loaded
+AIRTABLE_BASE=PLACEHOLDER
+# Airtable table identicator in the base to hold loaded data
+AIRTABLE_TABLE=PLACEHOLDER
+```
+
 ## Running the application
-Start the application With the following commandt
+After installation and configuration, run the application with the following command:
 
 ```
 poetry run python housetrack
 ```
+
+See `Makefile` for additional parameters
