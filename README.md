@@ -1,40 +1,40 @@
 # Move.nl House Listing Tracker
-This repository contains a Python application, which consists of multiple data pipelines.
-These pipelines following the extract, transform, and load designed principle.
-An online housing platform functions as source information, as housing details are normalized, they are loaded into Airtable.
+This repository contains a Python application that consists of multiple data pipelines.
+These pipelines follow the extract, transform, and load design principle.
+An online housing platform functions as a source of information, as housing details are normalized, they are loaded into Airtable.
 
 # Overview
-The pipelines data resolves around house listenings.
-It features pipelines to fullfill the following purpose:
+The pipelines' data resolves around house listening.
+It features pipelines to fulfill the following purposes:
 
 ## Overview extract 
 A page is opened, containing an overview of house listings.
-The listing platform accounts search criteria are applied.
+The listing platform account search criteria are applied.
 During extraction, loading as many available listings as possible is attempted.
-The little detail information of the listing is then loaded to Airtable.
+The little details of the listing are then loaded into Airtable.
 
 ## Details extract
-Following the overview extract process, more details of the listing are gathered.
-The listing details of unsold houses are updated if older then one week.
-Common described detail from the listing page are extracted.
-The detailed information is then added to the existing record in Airtable
+Following the overview extraction process, more details about the listing are gathered.
+The listing details of unsold houses are updated if they are older than one week.
+Commonly described details from the listing page are extracted.
+The detailed information is then added to the existing record in Airtable.
 
 # Set-up
 Requires [https://www.python.org/](https://www.python.org/) (^3.10), [Poetry](https://python-poetry.org/), and [Selenium](https://www.selenium.dev/) installed onto the target installation system.
-Futhermore credentials for the [Move.nl](https://move.nl/) housing platform, and [Airtable API](https://airtable.com/developers/web/api/introduction), are requisites.
+Furthermore credentials for the [Move.nl](https://move.nl/) housing platform and [Airtable API](https://airtable.com/developers/web/api/introduction) are requisites.
 
 ## Installation
-With Python installed on the target system, futher installation of Python dependencies are required.
-Use the [Poetry](https://python-poetry.org/) Python dependency manager to install them
+With Python installed on the target system, futher installation of Python dependencies is required.
+Use the [Poetry](https://python-poetry.org/) Python dependency manager to install them.
 Execute the following snippet on a command line interface (CLI) after navigating to the repository base directory (the  folder this file is located in):
 
 ```
 poetry install
 ```
 
-Simple environment variable configuration is needed to interact with external systems.
+A Simple environment variable configuration is needed, for the application to connect to external systems.
 Copy, or rename, the example environment configuration `example.env` to `.env`.
-Execute the following snippet in the CLI while in the base repository (or use your prefered file explorer):
+Execute the following snippet in the CLI while in the base repository (or use your preffered file explorer):
 
 ```
 cp example.env .env
@@ -63,4 +63,4 @@ After installation and configuration, run the application with the following com
 poetry run python housetrack
 ```
 
-See `Makefile` for additional parameters
+See `Makefile` for additional parameters.
