@@ -15,3 +15,6 @@ install:
 
 env: FORCE
 	cp example.env .env
+
+push:
+	git remote | xargs -L1 git push --all
