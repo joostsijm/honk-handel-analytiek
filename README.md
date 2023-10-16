@@ -21,7 +21,7 @@ The detailed information is then added to the existing record in Airtable.
 
 # Set-up
 Requires [https://www.python.org/](https://www.python.org/) (^3.10), [Poetry](https://python-poetry.org/), and [Selenium](https://www.selenium.dev/) installed onto the target installation system.
-Furthermore credentials for the [Move.nl](https://move.nl/) housing platform and [Airtable API](https://airtable.com/developers/web/api/introduction) are requisites.
+Furthermore, credentials for the [Move.nl](https://move.nl/) housing platform and [Airtable API](https://airtable.com/developers/web/api/introduction) are requisites.
 
 ## Installation
 With Python installed on the target system, further installation of Python dependencies is required.
@@ -32,7 +32,7 @@ Execute the following snippet on a command-line interface (CLI) after navigating
 poetry install
 ```
 
-A aimple environment variable configuration is needed for the application to connect to external systems.
+A simple environment variable configuration is needed for the application to connect to external systems.
 Copy, or rename, the example environment configuration `example.env` to `.env`.
 Execute the following snippet in the CLI while in the base repository (or use your preferred file explorer):
 
