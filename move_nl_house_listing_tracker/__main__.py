@@ -1,8 +1,7 @@
 """Trackhouses and save in Airtable"""
 
-import os
 import sys
-from pathlib import Path
+from os import environ, path
 
 from dotenv import load_dotenv
 
@@ -12,14 +11,17 @@ import housedetail
 
 
 load_dotenv()
-MOVE_USERNAME = os.environ.get("MOVE_USERNAME")
-MOVE_PASSWORD = os.environ.get("MOVE_PASSWORD")
-AIRTABLE_TOKEN = os.environ.get("AIRTABLE_TOKEN")
-AIRTABLE_BASE = os.environ.get("AIRTABLE_BASE")
-AIRTABLE_TABLE = os.environ.get("AIRTABLE_TABLE")
-HOUSE_URL = os.environ.get("HOUSE_URL")
+MOVE_USERNAME = environ.get("MOVE_USERNAME")
+MOVE_PASSWORD = environ.get("MOVE_PASSWORD")
 
-HOUSELIST_HTML_PATH = Path.cwd() / "extract" / "mijn_gevonden_woningen.html"
+AIRTABLE_TOKEN = environ.get("AIRTABLE_TOKEN")
+AIRTABLE_BASE = environ.get("AIRTABLE_BASE")
+AIRTABLE_TABLE = environ.get("AIRTABLE_TABLE")
+
+EXTRACT_DIRECTORY = "extract"
+HOUSELIST_HTML_PATH = path.abspath(
+    path.join(EXTRACT_DIRECTORY, "mijn_gevonden_woningen.html")
+)
 DATABASE = Database(AIRTABLE_TOKEN, AIRTABLE_BASE, AIRTABLE_TABLE)
 
 
@@ -37,6 +39,7 @@ def main():
             run_housedetail(from_cache=True)
         else:
             print(f"Argument not available, got {argument}")
+
 
 def run_houselist():
     """Execute houselist ETL"""
