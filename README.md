@@ -24,17 +24,17 @@ Requires [https://www.python.org/](https://www.python.org/) (^3.10), [Poetry](ht
 Furthermore credentials for the [Move.nl](https://move.nl/) housing platform and [Airtable API](https://airtable.com/developers/web/api/introduction) are requisites.
 
 ## Installation
-With Python installed on the target system, futher installation of Python dependencies is required.
+With Python installed on the target system, further installation of Python dependencies is required.
 Use the [Poetry](https://python-poetry.org/) Python dependency manager to install them.
-Execute the following snippet on a command line interface (CLI) after navigating to the repository base directory (the  folder this file is located in):
+Execute the following snippet on a command-line interface (CLI) after navigating to the repository base directory (the  folder this file is located in):
 
 ```
 poetry install
 ```
 
-A Simple environment variable configuration is needed, for the application to connect to external systems.
+A aimple environment variable configuration is needed for the application to connect to external systems.
 Copy, or rename, the example environment configuration `example.env` to `.env`.
-Execute the following snippet in the CLI while in the base repository (or use your preffered file explorer):
+Execute the following snippet in the CLI while in the base repository (or use your preferred file explorer):
 
 ```
 cp example.env .env
