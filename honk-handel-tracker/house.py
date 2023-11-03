@@ -1,6 +1,6 @@
 """House module"""
 
-import os
+from os import path
 from typing import Optional
 from datetime import datetime
 
@@ -30,10 +30,12 @@ class House:
         self,
         address: Optional[str] = None,
         url: Optional[str] = None,
+        extract_directory: Optional[str] = "extract",
         fields: Optional[list[str]] = None,
     ):
         self.address = address
         self.url = url
+        self.extract_directory = extract_directory
         if fields:
             self.fill_from_fields(fields)
 
@@ -59,7 +61,6 @@ class House:
         "Volume": "volume",
         "Number of floors": "number_of_floors",
         "Update date": "update_date",
-
     }
 
     def fill_from_fields(self, fields: list[str]):
@@ -94,7 +95,7 @@ class House:
     def html_path(self):
         """Return path for HTML storage"""
         address = self.address.replace("/", ",")
-        return os.path.abspath(os.path.join("extract", f"{address}.html"))
+        return path.abspath(path.join(self.extract_directory, f"{address}.html"))
 
     def __str__(self):
         return f"{self.address}"
