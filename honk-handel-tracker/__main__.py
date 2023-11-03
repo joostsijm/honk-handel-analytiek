@@ -32,20 +32,26 @@ def main():
         run_housedetail()
     else:
         if (argument := sys.argv[1]) == "list":
-            run_houselist()
+            run_houselist(from_cache=False)
+        elif argument == "list_from_cache":
+            run_houselist(from_cache=True)
         elif argument == "detail":
             run_housedetail(from_cache=False)
-        elif argument == "cache":
+        elif argument == "detail_from_cache":
             run_housedetail(from_cache=True)
         else:
             print(f"Argument not available, got {argument}")
 
 
-def run_houselist():
+def run_houselist(from_cache: bool = False):
     """Execute houselist ETL"""
     print("Start adding new houses from list.")
     loaded_data = houselist.run_etl(
-        houselist.Extract(MOVE_USERNAME, MOVE_PASSWORD, HOUSELIST_HTML_PATH),
+        (
+            None
+            if from_cache
+            else houselist.Extract(MOVE_USERNAME, MOVE_PASSWORD, HOUSELIST_HTML_PATH)
+        ),
         houselist.Transform(HOUSELIST_HTML_PATH),
         houselist.Load(DATABASE),
     )

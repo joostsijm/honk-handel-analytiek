@@ -20,11 +20,11 @@ class Transform:
             with open(self.__html_path, "r", encoding="utf-8") as extracted_file:
                 extracted_data = extracted_file.read()
         soup = BeautifulSoup(extracted_data, "html.parser")
-        houses = []
+        houses = {}
         for house_element in soup.select(".ant-list-item"):
             house = House(house_element.select_one("span[class='address']").text)
             price = house_element.select_one("span[class='price']").text
-            for replace in ["€ ", ".", ",- kosten koper"]:
+            for replace in ["€ ", ".", ",- ", "kosten koper", "vrij op naam"]:
                 price = price.replace(replace, "")
             house.price = int(price)
             postcode_city = house_element.select_one(
@@ -38,5 +38,5 @@ class Transform:
             house.rooms = int(detail_elements[2].text)
             house.bedrooms = int(detail_elements[3].text)
             house.url = "https://move.nl" + house_element.select_one("a")["href"]
-            houses.append(house)
-        return houses
+            houses[f"{house.address}_{house.postcode}"] = house
+        return houses.values()

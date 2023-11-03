@@ -1,14 +1,17 @@
-run: 
+run:
 	poetry run python honk-handel-tracker
 
-list: 
+list_from_cache:
+	poetry run python honk-handel-tracker list_from_cache
+
+list:
 	poetry run python honk-handel-tracker list
 
-detail: 
+detail:
 	poetry run python honk-handel-tracker detail
 
-cache: 
-	poetry run python honk-handel-tracker cache
+detail_from_cache:
+	poetry run python honk-handel-tracker detail_from_cache
 
 install:
 	poetry install

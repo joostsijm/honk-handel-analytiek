@@ -39,7 +39,7 @@ class Database:
         """Load record to Airtable"""
         try:
             updated_houses = self.__table.batch_upsert(
-                records, key_fields=["Address"], typecast=True
+                records, key_fields=["Address", "Postcode"], typecast=True
             )
         except requests.exceptions.HTTPError as exception:
             raise AirtableError(
