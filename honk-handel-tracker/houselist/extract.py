@@ -7,7 +7,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support import expected_conditions as expected_conditions
 from selenium.webdriver import ActionChains
 
 
@@ -48,7 +48,7 @@ class Extract:
         self.__driver.get("https://move.nl/login")
         assert "Move" in self.__driver.title
         username_input = WebDriverWait(self.__driver, 10).until(
-            EC.presence_of_element_located((By.ID, "username"))
+            expected_conditions.presence_of_element_located((By.ID, "username"))
         )
         username_input.clear()
         username_input.send_keys(self.__username)
@@ -57,11 +57,11 @@ class Extract:
         password_input.clear()
         password_input.send_keys(self.__password)
 
-        button = self.__driver.find_element(By.CSS_SELECTOR, "button[type='submit']")
-        ActionChains(self.__driver).click(button).perform()
+        submit = self.__driver.find_element(By.CSS_SELECTOR, "input[type='submit']")
+        ActionChains(self.__driver).click(submit).perform()
 
         WebDriverWait(self.__driver, 10).until(
-            EC.presence_of_element_located((By.CLASS_NAME, "ant-spin-container"))
+            expected_conditions.presence_of_element_located((By.CLASS_NAME, "ant-spin-container"))
         )
         time.sleep(self.__wait_time)
 
